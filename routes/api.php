@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 use App\Http\Middleware\AdminAuth;
 use App\Http\Middleware\UserAPIAuth;
 
@@ -25,5 +26,6 @@ Route::post('/add', [AdminController::class, 'store']);
 
 Route::middleware(AdminAuth::class)->prefix('admin')->group(function(){
     Route::post('/logout', [AdminController::class, 'logout']);
+    Route::apiResource('books', BookController::class);
 });
 
