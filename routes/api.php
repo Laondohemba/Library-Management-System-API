@@ -12,20 +12,24 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::prefix('/user')->group(function(){
+Route::prefix('user')->group(function(){
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
 });
 
 Route::middleware(UserAPIAuth::class)->prefix('user')->group(function(){
     Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::get('books', [BookController::class, 'index']);
+    Route::post('borrow/{book}', [BookController::class, 'borrowBook']);
 });
 
 Route::post('admin/login', [AdminController::class, 'login']);
-Route::post('/add', [AdminController::class, 'store']);
+Route::post('add', [AdminController::class, 'store']);
 
 Route::middleware(AdminAuth::class)->prefix('admin')->group(function(){
-    Route::post('/logout', [AdminController::class, 'logout']);
+    Route::post('logout', [AdminController::class, 'logout']);
     Route::apiResource('books', BookController::class);
+    Route::put('return/{book}', [BookController::class, 'returnBook']);
 });
 

@@ -19,7 +19,7 @@ class BookFactory extends Factory
         return [
             'author' => fake()->name(),
             'title' => fake()->sentence(),
-            'copies_available' => 39,
+            'copies_available' => 1,
         ];
     }
 }
